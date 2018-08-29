@@ -95,6 +95,11 @@ public class ConfigXBeanPostProcessor implements BeanPostProcessor,InitializingB
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        configXStore.init();
+        Thread a = new Thread(() -> {
+            configXStore.init();
+
+        });
+
+        a.run();
     }
 }
