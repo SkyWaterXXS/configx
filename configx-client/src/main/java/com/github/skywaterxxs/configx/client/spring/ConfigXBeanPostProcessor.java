@@ -100,6 +100,12 @@ public class ConfigXBeanPostProcessor implements BeanPostProcessor,InitializingB
 
         });
 
-        a.run();
+//        Thread b = new Thread(() -> {
+//            configXStore.init();
+//
+//        });
+
+        a.start();
+//        b.start();
     }
 }

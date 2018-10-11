@@ -1,10 +1,7 @@
 package com.github.skywaterxxs.configx.client.chat;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -24,6 +21,8 @@ import javax.annotation.PostConstruct;
 
 public class ChatClient {
 
+    public static Channel channel;
+
     public void connect(String host, int port) throws Exception {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -41,6 +40,8 @@ public class ChatClient {
 
             // Start the client.
             ChannelFuture f = b.connect(host, port).sync();
+
+            channel=f.channel();
 
             // Wait until the connection is closed.
             f.channel().closeFuture().sync();

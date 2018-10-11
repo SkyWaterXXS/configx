@@ -1,5 +1,7 @@
 package com.github.skywaterxxs.configx.server.chat;
 
+import com.github.skywaterxxs.configx.remoting.server.NettyServer;
+import com.github.skywaterxxs.configx.remoting.server.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -29,7 +31,12 @@ public class ChatServer {
     public void init() {
 
         Thread a = new Thread(() -> {
-            start(8000);
+            Server server=new NettyServer("127.0.0.1");
+            try {
+                server.start(7000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         });
         a.start();

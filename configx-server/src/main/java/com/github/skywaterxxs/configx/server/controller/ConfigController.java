@@ -1,6 +1,7 @@
 package com.github.skywaterxxs.configx.server.controller;
 
 import com.github.skywaterxxs.common.JsonUtil;
+import com.github.skywaterxxs.configx.core.spring.SpringContextUtil;
 import com.github.skywaterxxs.configx.server.business.ConfigBusiness;
 import com.github.skywaterxxs.configx.server.chat.ChatClientChannelStore;
 import io.netty.buffer.ByteBuf;
@@ -9,6 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,6 +39,10 @@ public class ConfigController {
         Map<String,String> configs=new Hashtable<>();
         configs.put("name","xxs");
 
+
+        ApplicationContext applicationContext= SpringContextUtil.getApplicationContext();
+
+        applicationContext.getApplicationName();
         return configs;
     }
 

@@ -1,6 +1,7 @@
 package com.github.skywaterxxs.configx.client.chat;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -13,7 +14,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class ChatClientChannelHandler extends ChannelInboundHandlerAdapter {
+public class ChatClientChannelHandler extends ChannelDuplexHandler {
 
     /**
      * 接收server端的消息，并打印出来
@@ -27,7 +28,9 @@ public class ChatClientChannelHandler extends ChannelInboundHandlerAdapter {
         ByteBuf result = (ByteBuf) msg;
         byte[] result1 = new byte[result.readableBytes()];
         result.readBytes(result1);
+
         System.out.println("Server said:" + new String(result1));
+        Thread.sleep(10000);
         result.release();
     }
 

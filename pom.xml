@@ -18,6 +18,8 @@
         <module>configx-server</module>
         <module>configx-test</module>
         <module>configx-common</module>
+        <module>configx-remoting</module>
+        <module>configx-core</module>
     </modules>
 
     <build>

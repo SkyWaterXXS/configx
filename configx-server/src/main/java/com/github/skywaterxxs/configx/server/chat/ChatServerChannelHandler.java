@@ -1,9 +1,10 @@
 package com.github.skywaterxxs.configx.server.chat;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.socket.SocketChannel;
+
+import java.util.Map;
 
 /**
  * <p>ClassName:com.github.skywaterxxs.configx.server.chat.ChatServerChannelHandler</p>
@@ -14,7 +15,11 @@ import io.netty.channel.socket.SocketChannel;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class ChatServerChannelHandler extends ChannelInboundHandlerAdapter {
+public class ChatServerChannelHandler extends ChannelDuplexHandler {
+
+
+    private int a=0;
+
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -25,6 +30,8 @@ public class ChatServerChannelHandler extends ChannelInboundHandlerAdapter {
         String resultStr = new String(result1);
         // 接收并打印客户端的信息
         System.out.println("Client said:" + resultStr);
+        a++;
+        System.out.println("a="+a);
         // 释放资源，这行很关键
         result.release();
 
