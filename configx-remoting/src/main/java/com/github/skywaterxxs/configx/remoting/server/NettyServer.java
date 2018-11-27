@@ -3,7 +3,6 @@ package com.github.skywaterxxs.configx.remoting.server;
 import com.github.skywaterxxs.configx.remoting.Connection;
 import com.github.skywaterxxs.configx.remoting.ProtocolFactory;
 import com.github.skywaterxxs.configx.remoting.ResponseStatus;
-import com.github.skywaterxxs.configx.remoting.RpcResponse;
 import com.github.skywaterxxs.configx.remoting.codec.NettyProtocolDecoder;
 import com.github.skywaterxxs.configx.remoting.codec.NettyProtocolEncoder;
 import com.github.skywaterxxs.configx.remoting.util.NamedThreadFactory;

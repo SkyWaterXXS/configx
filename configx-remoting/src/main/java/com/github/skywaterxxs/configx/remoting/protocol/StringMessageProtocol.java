@@ -15,6 +15,10 @@ import com.github.skywaterxxs.configx.remoting.Protocol;
 public class StringMessageProtocol implements Protocol {
     /**
      * encode message to byte
+     * <p>
+     * 0 协议类型
+     * 1～4 消息长度
+     * 5+ 消息内容
      *
      * @param message           原始消息
      * @param byteBufferWrapper 编码后的字节

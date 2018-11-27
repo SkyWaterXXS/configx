@@ -23,7 +23,7 @@ public interface Connection {
 
      long getLastReadTime();
 
-     void writeToChannel(BaseResponse responseWrapper);
+//     void writeToChannel(BaseResponse responseWrapper);
 
      void close();
 }

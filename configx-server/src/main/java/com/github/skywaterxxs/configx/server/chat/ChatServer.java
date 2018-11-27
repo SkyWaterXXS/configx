@@ -26,15 +26,17 @@ import javax.annotation.PostConstruct;
 @Service
 public class ChatServer {
 
+    public static   NettyServer nettyServer;
 
     @PostConstruct
     public void init() {
 
         Thread a = new Thread(() -> {
-            Server server=new NettyServer("127.0.0.1");
+            NettyServer server = new NettyServer("127.0.0.1");
             try {
                 server.start(7000);
-            } catch (Exception e) {
+                nettyServer=server;
+                } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -42,37 +44,4 @@ public class ChatServer {
         a.start();
         System.out.println("ChatServer_start");
     }
-
-    public void start(int port) {
-        try {
-            EventLoopGroup bossGroup = new NioEventLoopGroup();
-            EventLoopGroup workerGroup = new NioEventLoopGroup();
-            try {
-                ServerBootstrap b = new ServerBootstrap();
-                b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
-                        .childHandler(new ChannelInitializer<SocketChannel>() {
-                            @Override
-                            public void initChannel(SocketChannel ch) {
-                                // 注册handler
-                                ch.pipeline().addLast(new ChatServerChannelHandler());
-                            }
-                        }).option(ChannelOption.SO_BACKLOG, 128)
-                        .childOption(ChannelOption.SO_KEEPALIVE, true);
-
-                ChannelFuture f = null;
-
-                f = b.bind(port).sync();
-
-
-                f.channel().closeFuture().sync();
-            } finally {
-                workerGroup.shutdownGracefully();
-                bossGroup.shutdownGracefully();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }

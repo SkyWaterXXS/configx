@@ -21,11 +21,11 @@ public enum ResponseStatus {
     SERVER_ERROR(80, "server error"), //
     CLIENT_ERROR(90, "client error"), //
     UNKNOWN_ERROR(91, "Unknow error"), // 没有注册Listener，包括CheckMessageListener和MessageListener
-    THREADPOOL_BUSY(81, "Thread pool is busy"), // 响应段线程繁忙
+    THREAD_POOL_BUSY(81, "Thread pool is busy"), // 响应段线程繁忙
     COMM_ERROR(82, "Communication error"), //
     SERVER_CLOSING(88, "server will close soon"), //
-    SERVER_GETCODER(10, "server send coders"), //
-    UNKNOW_CODE(83, "Unkown code"); // 通讯错误，如编码错误
+    SERVER_GET_CODER(10, "server send coders"), //
+    UNKNOWN_CODE(83, "Unkown code"); // 通讯错误，如编码错误
 
     private final String message;
     private final byte code;
@@ -42,7 +42,7 @@ public enum ResponseStatus {
                 return value;
             }
         }
-        return UNKNOW_CODE;
+        return UNKNOWN_CODE;
     }
 
     public String getMessage() {

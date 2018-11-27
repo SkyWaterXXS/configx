@@ -1,12 +1,10 @@
 package com.github.skywaterxxs.configx.remoting;
 
 //import com.github.skywaterxxs.configx.remoting.server.RpcServerHandler;
-import com.github.skywaterxxs.configx.remoting.protocol.RpcRequestProtocol;
-import com.github.skywaterxxs.configx.remoting.protocol.RpcResponseProtocol;
+import com.github.skywaterxxs.configx.remoting.protocol.StringMessageProtocol;
 import com.github.skywaterxxs.configx.remoting.server.ServerHandler;
 
-import static com.github.skywaterxxs.configx.remoting.RemotingConstants.PROTOCOL_RPC_REQUEST;
-import static com.github.skywaterxxs.configx.remoting.RemotingConstants.PROTOCOL_RPC_RESPONSE;
+import static com.github.skywaterxxs.configx.remoting.RemotingConstants.PROTOCOL_STRING;
 
 /**
  * <p>ClassName:com.github.skywaterxxs.configx.remoting.ProtocolFactory</p>
@@ -24,8 +22,7 @@ public class ProtocolFactory {
     public static ProtocolFactory instance = new ProtocolFactory();
 
     private ProtocolFactory() {
-        registerProtocol(PROTOCOL_RPC_REQUEST, new RpcRequestProtocol());
-        registerProtocol(PROTOCOL_RPC_RESPONSE, new RpcResponseProtocol());
+        registerProtocol(PROTOCOL_STRING, new StringMessageProtocol());
 
 //        registerProtocol(RemotingConstants.PROCOCOL_VERSION_HEATBEAT, new HeartBeatProtocol());
 //        registerProtocol(RemotingConstants.PROCOCOL_VERSION_TB_REMOTING, new TbRemotingProtocol());
@@ -49,11 +46,6 @@ public class ProtocolFactory {
 
         Protocol protocol = null;
 
-        if (object instanceof RpcRequest) {
-            protocol = getProtocol(PROTOCOL_RPC_REQUEST);
-        } else if (object instanceof RpcResponse) {
-            protocol = getProtocol(PROTOCOL_RPC_RESPONSE);
-        }
 
 
         return protocol;

@@ -49,29 +49,29 @@ public class NettyConnection implements Connection {
         return peerIP;
     }
 
-    @Override
-    public void writeToChannel(final BaseResponse response) {
-        if (response != null) {
-            // if (channel.isWritable()) {
-            ChannelFuture wf = channel.writeAndFlush(response);
-            wf.addListener(new ChannelFutureListener() {
-                @Override
-                public void operationComplete(ChannelFuture future) throws Exception {
-                    if (!future.isSuccess()) {
-//                        LOGGER.error("", LogConstants.PREFIX_IMPORTANT + "server write response error,request id is: "
-//                                + response.getRequestID() + ", channel:" + NettyConnection.this.getPeerIP()
-//                                + ((null != future.cause())? ", cause:" + future.cause(): ""));
-                        // need response or not under this condition?
-                        // this.sendErrorResponse(NettyConnection.this, request);
-                        if (!channel.isActive()) {
-                            channel.close();
-                        }
-                    }
-                }
-            });
-        }
-        // }
-    }
+//    @Override
+//    public void writeToChannel(final BaseResponse response) {
+//        if (response != null) {
+//            // if (channel.isWritable()) {
+//            ChannelFuture wf = channel.writeAndFlush(response);
+//            wf.addListener(new ChannelFutureListener() {
+//                @Override
+//                public void operationComplete(ChannelFuture future) throws Exception {
+//                    if (!future.isSuccess()) {
+////                        LOGGER.error("", LogConstants.PREFIX_IMPORTANT + "server write response error,request id is: "
+////                                + response.getRequestID() + ", channel:" + NettyConnection.this.getPeerIP()
+////                                + ((null != future.cause())? ", cause:" + future.cause(): ""));
+//                        // need response or not under this condition?
+//                        // this.sendErrorResponse(NettyConnection.this, request);
+//                        if (!channel.isActive()) {
+//                            channel.close();
+//                        }
+//                    }
+//                }
+//            });
+//        }
+//        // }
+//    }
 
     @Override
     public String toString() {

@@ -1,6 +1,5 @@
 package com.github.skywaterxxs.configx.remoting.client;
 
-import com.github.skywaterxxs.configx.remoting.BaseResponse;
 import com.github.skywaterxxs.configx.remoting.RemotingRuntimeInfoHolder;
 import io.netty.channel.*;
 import io.netty.util.Timeout;

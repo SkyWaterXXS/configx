@@ -13,9 +13,10 @@ import java.nio.charset.Charset;
  */
 public interface RemotingConstants {
 
+    byte PROTOCOL_STRING = (byte) 1;
 
-    byte PROTOCOL_RPC_REQUEST = (byte) 1;
-    byte PROTOCOL_RPC_RESPONSE = (byte) 2;
+//    byte PROTOCOL_RPC_REQUEST = (byte) 1;
+//    byte PROTOCOL_RPC_RESPONSE = (byte) 2;
 
 
     /** TB_REMOTING新版报文的第一个byte的内容，用来标识新版报文 */

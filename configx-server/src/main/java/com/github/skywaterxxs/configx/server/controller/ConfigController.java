@@ -1,23 +1,19 @@
 package com.github.skywaterxxs.configx.server.controller;
 
-import com.github.skywaterxxs.common.JsonUtil;
-import com.github.skywaterxxs.configx.core.spring.SpringContextUtil;
+
 import com.github.skywaterxxs.configx.server.business.ConfigBusiness;
-import com.github.skywaterxxs.configx.server.chat.ChatClientChannelStore;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.socket.SocketChannel;
-import okhttp3.*;
+import com.github.skywaterxxs.configx.server.chat.ChatServer;
+import io.netty.channel.Channel;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,41 +32,15 @@ public class ConfigController {
     @RequestMapping("/init/v1")
     @ResponseBody
     public Object init() {
-        Map<String,String> configs=new Hashtable<>();
-        configs.put("name","xxs");
+        Map<String, String> configs = new Hashtable<>();
+        configs.put("name", "xxs");
 
+        List<Channel> channels = ChatServer.nettyServer.listChannels();
 
-        ApplicationContext applicationContext= SpringContextUtil.getApplicationContext();
-
-        applicationContext.getApplicationName();
-        return configs;
-    }
-
-    //http://127.0.0.1:5210/config/update/v1
-    @RequestMapping("/update/v1")
-    @ResponseBody
-    public Object update() {
-
-        try{
-            Map<String, ChannelHandlerContext> map = ChatClientChannelStore.getChannels();
-            Iterator<String> it = map.keySet().iterator();
-            while (it.hasNext()) {
-                String key = it.next();
-                ChannelHandlerContext ctx = map.get(key);
-                // 向客户端发送消息
-                String response = "sdsdssdsd";
-                // 在当前场景下，发送的数据必须转换成ByteBuf数组
-                ByteBuf encoded = ctx.alloc().buffer(4 * response.length());
-                encoded.writeBytes(response.getBytes());
-                ctx.write(encoded);
-                ctx.flush();            }
-        }catch(Exception e){
-
-            e.printStackTrace();
+        for (Channel channel : channels) {
+            channel.writeAndFlush("sshkjk");
         }
-
-
-        return "true";
+        return configs;
     }
 
 }

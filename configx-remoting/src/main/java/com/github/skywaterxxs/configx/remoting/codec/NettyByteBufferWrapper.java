@@ -1,6 +1,6 @@
 package com.github.skywaterxxs.configx.remoting.codec;
 
-import com.github.skywaterxxs.configx.remoting.BaseResponse;
+//import com.github.skywaterxxs.configx.remoting.BaseResponse;
 import com.github.skywaterxxs.configx.remoting.ByteBufferWrapper;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;

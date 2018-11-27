@@ -1,6 +1,6 @@
 package com.github.skywaterxxs.configx.remoting.codec;
 
-import com.github.skywaterxxs.configx.remoting.BaseHeader;
+//import com.github.skywaterxxs.configx.remoting.BaseHeader;
 import com.github.skywaterxxs.configx.remoting.ByteBufferWrapper;
 import com.github.skywaterxxs.configx.remoting.Protocol;
 import com.github.skywaterxxs.configx.remoting.ProtocolFactory;
