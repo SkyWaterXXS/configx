@@ -1,5 +1,6 @@
 package com.github.skywaterxxs.configx.client.store;
 
+import com.github.skywaterxxs.common.RetryRunUtil;
 import com.github.skywaterxxs.configx.remoting.client.NettyClient;
 import com.github.skywaterxxs.configx.remoting.client.RemotingURL;
 import okhttp3.*;
@@ -31,39 +32,25 @@ public class ConfigXStore {
         }
 
         Integer retryTime = 3;
-        Integer currentTime = 0;
 
-        OkHttpClient client = new OkHttpClient();
-        Response response = null;
-        ResponseBody responseBody = null;
-
-        while (true) {
-            if (currentTime++ >= retryTime) {
-                logger.error("configX无法从服务器获取到配置信息");
-                break;
-            }
+        RetryRunUtil.runRetry(() -> {
             try {
+                NettyClient nettyClient = new NettyClient();
 
-//                ChatClient chatClient=new ChatClient();
-//                chatClient.connect("127.0.0.1", 8000);
-
-                NettyClient nettyClient=new NettyClient();
-
-                RemotingURL remotingURL=new RemotingURL();
+                RemotingURL remotingURL = new RemotingURL();
                 remotingURL.setPort(7000);
                 remotingURL.setHost("127.0.0.1");
 
-                NettyClient a= nettyClient.createClient(remotingURL);
+                NettyClient a = nettyClient.createClient(remotingURL);
 
                 a.getChannel().writeAndFlush("我来了");
-                clientStore.put(remotingURL.getHost(),a);
-
-                break;
+                clientStore.put(remotingURL.getHost(), a);
             } catch (Exception e) {
-                e.printStackTrace();
-                logger.error(e.getMessage(), e);
+                throw new RuntimeException("need retry", e);
             }
-        }
+
+        }, retryTime);
+
 
     }
 

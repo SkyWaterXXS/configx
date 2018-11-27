@@ -17,12 +17,12 @@ import java.util.Properties;
 /**
  * @author xuxiaoshuo 2018/4/5
  */
-public class ConfigXBeanPostProcessor implements BeanPostProcessor,InitializingBean {
+public class ConfigXBeanPostProcessor implements BeanPostProcessor, InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigXBeanPostProcessor.class);
 
 
-    ConfigXStore configXStore = new ConfigXStore();
+    private ConfigXStore configXStore = new ConfigXStore();
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
@@ -51,16 +51,26 @@ public class ConfigXBeanPostProcessor implements BeanPostProcessor,InitializingB
         if (clazz == null) {
             return;
         }
-        ConfigX configXAnnotation = AnnotationUtils.getAnnotation(clazz, ConfigX.class);
-        if (configXAnnotation == null) {
-            return;
-        }
 
-        ConfigXStore.store.put("configXBean",bean);
+        boolean isConfigBean = false;
+
+        ConfigX configXAnnotation = AnnotationUtils.getAnnotation(clazz, ConfigX.class);
+        if (configXAnnotation != null) {
+            ConfigXStore.store.put("configXBean", bean);
+            isConfigBean = true;
+        }
 
 
         for (Field field : clazz.getDeclaredFields()) {
+
+            ConfigX configXField = field.getAnnotation(ConfigX.class);
+            if (!isConfigBean && configXField == null) {
+                continue;
+            }
+
             try {
+
+
                 Class<?> fieldType = field.getType();
 
                 String configKey = field.getName();
@@ -76,12 +86,11 @@ public class ConfigXBeanPostProcessor implements BeanPostProcessor,InitializingB
                 if (fieldType.equals(String.class)) {
 
                     invokeSetField(field, bean, configValue);
-                    logger.info("成功设置{}",configKey);
+                    logger.info("成功设置{}", configKey);
                     continue;
                 }
 
-            }
-            catch (Throwable e) {
+            } catch (Throwable e) {
                 throw new RuntimeException("初始化字段失败. bean: " + bean + ", field: " + field, e);
             }
         }
@@ -94,18 +103,8 @@ public class ConfigXBeanPostProcessor implements BeanPostProcessor,InitializingB
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
-        Thread a = new Thread(() -> {
-            configXStore.init();
-
-        });
-
-//        Thread b = new Thread(() -> {
-//            configXStore.init();
-//
-//        });
-
+    public void afterPropertiesSet() {
+        Thread a = new Thread(() -> configXStore.init());
         a.start();
-//        b.start();
     }
 }
