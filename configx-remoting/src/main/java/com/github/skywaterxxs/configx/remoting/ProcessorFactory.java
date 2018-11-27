@@ -11,8 +11,12 @@ package com.github.skywaterxxs.configx.remoting;
  */
 public class ProcessorFactory {
 
-    public static Processor getProcessor(Object message) {
-        return null;
+    public static ServerProcessor serverProcessor;
+
+    public static ServerProcessor getProcessor(Object message) {
+        return serverProcessor;
     }
+
+
 
 }

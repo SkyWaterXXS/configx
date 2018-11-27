@@ -39,18 +39,15 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        ServerProcessor serverProcessor =ProcessorFactory.getProcessor(msg);
 
-        System.out.println(msg);
-
-        Processor processor=ProcessorFactory.getProcessor(msg);
-
-        if (processor == null || processor.produceExecutor() == null) {
+        if (serverProcessor == null || serverProcessor.produceExecutor() == null) {
             return;
         }
 
-        Executor executor = processor.produceExecutor();
+        Executor executor = serverProcessor.produceExecutor();
         try {
-            executor.execute(new HandlerRunnable(ctx.channel(), msg, processor));
+            executor.execute(new HandlerRunnable(ctx.channel(), msg, serverProcessor));
 
         } catch (Throwable t) {
 //                LOGGER.error("", "Local HSF thread pool is full." + t.getMessage());
@@ -92,19 +89,19 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         private final Channel connection;
         private final Object message;
         private final long dispatchTime;
-        private final Processor processor;
+        private final ServerProcessor serverProcessor;
 
-        public HandlerRunnable(Channel conneciton, Object message,Processor processor) {
+        public HandlerRunnable(Channel conneciton, Object message,ServerProcessor serverProcessor) {
             this.connection = conneciton;
             this.message = message;
             this.dispatchTime = System.currentTimeMillis();
-            this.processor=processor;
+            this.serverProcessor = serverProcessor;
         }
 
         @Override
         public void run() {
 //            EagleEye.requestSize(message.size());
-            processor.execute(message, connection, dispatchTime);
+            serverProcessor.execute(message, connection, dispatchTime);
         }
 
     }

@@ -1,8 +1,6 @@
 package com.github.skywaterxxs.configx.remoting.server;
 
-import com.github.skywaterxxs.configx.remoting.Connection;
-import com.github.skywaterxxs.configx.remoting.ProtocolFactory;
-import com.github.skywaterxxs.configx.remoting.ResponseStatus;
+import com.github.skywaterxxs.configx.remoting.*;
 import com.github.skywaterxxs.configx.remoting.codec.NettyProtocolDecoder;
 import com.github.skywaterxxs.configx.remoting.codec.NettyProtocolEncoder;
 import com.github.skywaterxxs.configx.remoting.util.NamedThreadFactory;
@@ -11,15 +9,9 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpRequestDecoder;
-import io.netty.handler.codec.http.HttpResponseEncoder;
-import io.netty.util.internal.SystemPropertyUtil;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.net.InetSocketAddress;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.github.skywaterxxs.configx.remoting.HSFThreadNameSpace.HSF_NETTY_BOSS;
@@ -49,7 +41,8 @@ public class NettyServer implements Server{
     private final AtomicBoolean startHttpFlag = new AtomicBoolean(false);
     private final String bindHost;
 
-    public NettyServer(final String bindHost) {
+    public NettyServer(final String bindHost,ServerProcessor serverProcessor) {
+        ProcessorFactory.serverProcessor = serverProcessor;
 //        this.rpcProcessor = rpcProcessor;
 //        ProtocolFactory.instance.initServerSide(rpcProcessor);
         this.bindHost = bindHost;

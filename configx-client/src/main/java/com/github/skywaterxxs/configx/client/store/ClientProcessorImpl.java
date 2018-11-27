@@ -1,9 +1,9 @@
 package com.github.skywaterxxs.configx.client.store;
 
-import com.github.skywaterxxs.configx.remoting.client.MessageProcessor;
+import com.github.skywaterxxs.configx.remoting.client.ClientProcessor;
 
 /**
- * <p>ClassName:com.github.skywaterxxs.configx.client.store.MessageProcessorImpl</p>
+ * <p>ClassName:com.github.skywaterxxs.configx.client.store.ClientProcessorImpl</p>
  * <p>描述:  </p>
  * <p>日期: 2018/11/27 </p>
  *
@@ -11,7 +11,7 @@ import com.github.skywaterxxs.configx.remoting.client.MessageProcessor;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class MessageProcessorImpl implements MessageProcessor {
+public class ClientProcessorImpl implements ClientProcessor {
 
     @Override
     public void processor(String message) {

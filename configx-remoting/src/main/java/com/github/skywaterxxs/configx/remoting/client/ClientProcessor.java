@@ -1,7 +1,7 @@
 package com.github.skywaterxxs.configx.remoting.client;
 
 /**
- * <p>ClassName:com.github.skywaterxxs.configx.remoting.client.MessageProcessor</p>
+ * <p>ClassName:com.github.skywaterxxs.configx.remoting.client.ClientProcessor</p>
  * <p>描述:  </p>
  * <p>日期: 2018/11/27 </p>
  *
@@ -9,7 +9,7 @@ package com.github.skywaterxxs.configx.remoting.client;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface MessageProcessor {
+public interface ClientProcessor {
 
     void processor(String message);
 }

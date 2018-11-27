@@ -2,11 +2,6 @@ package com.github.skywaterxxs.configx.remoting.client;
 
 import com.github.skywaterxxs.configx.remoting.RemotingRuntimeInfoHolder;
 import io.netty.channel.*;
-import io.netty.util.Timeout;
-import io.netty.util.TimerTask;
-
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>ClassName:com.github.skywaterxxs.configx.remoting.client.NettyClientHandler</p>
@@ -22,12 +17,12 @@ public class NettyClientHandler extends ChannelDuplexHandler {
 
 //    private final Map<Long, BaseRequestWrapperInterface> mappers = Maps.newHashMap();
 
-    MessageProcessor messageProcessor;
+    ClientProcessor clientProcessor;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof String) {
-            messageProcessor.processor((String) msg);
+            clientProcessor.processor((String) msg);
         }
 
     }

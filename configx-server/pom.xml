@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.skywaterxxs</groupId>
-            <artifactId>configx-remoting</artifactId>
+            <artifactId>configx-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

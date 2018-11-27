@@ -41,7 +41,7 @@ public class HSFThreadNameSpace {
     /**
      * <code>ThreadPoolManager</code>类定义的线程池,service配置了线程池参数时的命名 <br>
      *
-     * 格式如:HSF-Processor-com.taobao.hsf.jar.test.HelloWorldService:1.0.0.
+     * 格式如:HSF-ServerProcessor-com.taobao.hsf.jar.test.HelloWorldService:1.0.0.
      * kongming-9-thread-1<br>
      *
      * @param serviceUniqueName

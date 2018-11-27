@@ -18,7 +18,7 @@ import java.util.concurrent.CountDownLatch;
 public class ConfigXStore {
     public static CountDownLatch initConfigCountDownLatch = new CountDownLatch(1);
 
-    MessageProcessorImpl messageProcessor=new MessageProcessorImpl();
+    ClientProcessorImpl messageProcessor=new ClientProcessorImpl();
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigXStore.class);
 

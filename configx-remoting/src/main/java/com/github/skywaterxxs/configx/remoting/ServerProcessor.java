@@ -5,7 +5,7 @@ import io.netty.channel.Channel;
 import java.util.concurrent.Executor;
 
 /**
- * <p>ClassName:com.github.skywaterxxs.configx.remoting.Processor</p>
+ * <p>ClassName:com.github.skywaterxxs.configx.remoting.ServerProcessor</p>
  * <p>描述:  </p>
  * <p>日期: 2018/9/3 </p>
  *
@@ -13,7 +13,7 @@ import java.util.concurrent.Executor;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface Processor {
+public interface ServerProcessor {
 
     Executor produceExecutor();
 

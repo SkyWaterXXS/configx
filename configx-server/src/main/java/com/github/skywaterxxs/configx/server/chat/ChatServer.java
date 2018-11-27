@@ -1,15 +1,7 @@
 package com.github.skywaterxxs.configx.server.chat;
 
 import com.github.skywaterxxs.configx.remoting.server.NettyServer;
-import com.github.skywaterxxs.configx.remoting.server.Server;
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
+import com.github.skywaterxxs.configx.server.business.ServerProcessorImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -32,7 +24,7 @@ public class ChatServer {
     public void init() {
 
         Thread a = new Thread(() -> {
-            NettyServer server = new NettyServer("127.0.0.1");
+            NettyServer server = new NettyServer("127.0.0.1",new ServerProcessorImpl());
             try {
                 server.start(7000);
                 nettyServer=server;
