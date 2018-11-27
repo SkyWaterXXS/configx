@@ -70,24 +70,16 @@ public class ConfigXBeanPostProcessor implements BeanPostProcessor, Initializing
 
             try {
 
-
                 Class<?> fieldType = field.getType();
 
                 String configKey = field.getName();
 
                 String configValue = configXStore.getConfigValue(configKey);
 
-                if (fieldType.equals(Properties.class)) {
-                    Properties properties = new Properties();
-                    properties.putAll(null);
-                    invokeSetField(field, bean, properties);
-                    continue;
-                }
                 if (fieldType.equals(String.class)) {
 
                     invokeSetField(field, bean, configValue);
                     logger.info("成功设置{}", configKey);
-                    continue;
                 }
 
             } catch (Throwable e) {
