@@ -22,12 +22,12 @@ public class NettyClientHandler extends ChannelDuplexHandler {
 
 //    private final Map<Long, BaseRequestWrapperInterface> mappers = Maps.newHashMap();
 
+    MessageProcessor messageProcessor;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof String) {
-            System.out.println(msg);
-
+            messageProcessor.processor((String) msg);
         }
 
     }

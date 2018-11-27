@@ -27,7 +27,9 @@ public class HelloWorldController {
 
         nettyClient.getChannel().writeAndFlush(msg);
 
-//        System.out.println(configXService.getName());
+        System.out.println(configXService.getName());
 
     }
+
+
 }

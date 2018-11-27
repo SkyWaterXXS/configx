@@ -49,9 +49,10 @@ public class NettyClient {
         this.channel=channel;
     }
 
-    public NettyClient createClient(final RemotingURL url) throws Exception {
+    public NettyClient createClient(final RemotingURL url,MessageProcessor messageProcessor) throws Exception {
         final Bootstrap bootstrap = new Bootstrap();
         NettyClientHandler handler = new NettyClientHandler();
+        handler.messageProcessor = messageProcessor;
         bootstrap.group(NettySharedHolder.workerGroup)//
                 .option(ChannelOption.TCP_NODELAY, true)//
                 .option(ChannelOption.SO_REUSEADDR, true)//
