@@ -17,15 +17,10 @@ public class HelloWorldController {
     @Autowired
     ConfigXService configXService;
 
-    //http://127.0.0.1:8080/helloworld/testDataSource?msg=1
+    //http://127.0.0.1:5212/helloworld/testDataSource?msg=1
     @RequestMapping("/testDataSource")
     @ResponseBody
     public void testDataSource(String  msg) {
-
-        NettyClient nettyClient= ConfigXStore.clientStore.get("127.0.0.1");
-
-
-        nettyClient.getChannel().writeAndFlush(msg);
 
         System.out.println(configXService.getName());
 

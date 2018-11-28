@@ -1,6 +1,8 @@
 package com.github.skywaterxxs.configx.client.store;
 
+import com.github.skywaterxxs.common.JsonUtil;
 import com.github.skywaterxxs.common.RetryRunUtil;
+import com.github.skywaterxxs.configx.client.domain.Chat;
 import com.github.skywaterxxs.configx.client.spring.ConfigMetaInfo;
 import com.github.skywaterxxs.configx.remoting.client.NettyClient;
 import com.github.skywaterxxs.configx.remoting.client.RemotingURL;
@@ -18,7 +20,7 @@ import java.util.concurrent.CountDownLatch;
 public class ConfigXStore {
     public static CountDownLatch initConfigCountDownLatch = new CountDownLatch(1);
 
-    ClientProcessorImpl messageProcessor=new ClientProcessorImpl();
+    ClientProcessorImpl messageProcessor = new ClientProcessorImpl();
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigXStore.class);
 
@@ -45,12 +47,15 @@ public class ConfigXStore {
                 remotingURL.setPort(7000);
                 remotingURL.setHost("127.0.0.1");
 
-                NettyClient a = nettyClient.createClient(remotingURL,messageProcessor);
+                NettyClient a = nettyClient.createClient(remotingURL, messageProcessor);
 
-                a.getChannel().writeAndFlush("我来了");
                 clientStore.put(remotingURL.getHost(), a);
 
                 System.out.println("等待服务器响应");
+                Chat outChat = new Chat( "getConfig");
+
+                a.getChannel().writeAndFlush(JsonUtil.toJson(outChat));
+
                 initConfigCountDownLatch.await();
                 System.out.println("获取配置完成");
 

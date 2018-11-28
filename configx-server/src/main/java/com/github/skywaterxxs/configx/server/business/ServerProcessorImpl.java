@@ -1,8 +1,17 @@
 package com.github.skywaterxxs.configx.server.business;
 
+import com.github.skywaterxxs.common.JsonUtil;
+import com.github.skywaterxxs.configx.client.domain.Chat;
+import com.github.skywaterxxs.configx.client.store.ConfigXStore;
 import com.github.skywaterxxs.configx.remoting.ServerProcessor;
 import io.netty.channel.Channel;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 /**
@@ -15,6 +24,7 @@ import java.util.concurrent.*;
  * @since 1.0.0
  */
 public class ServerProcessorImpl implements ServerProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(ServerProcessorImpl.class);
 
     ThreadFactory threadFactory = Executors.defaultThreadFactory();
     // creating the ThreadPoolExecutor
@@ -29,9 +39,29 @@ public class ServerProcessorImpl implements ServerProcessor {
     @Override
     public void execute(Object message, Channel channel, long dispatchTime) {
 
-        System.out.println(message);
+        try {
+            Chat inChat = JsonUtil.of((String) message, Chat.class);
 
-        channel.writeAndFlush("shoudaole");
+            if (inChat == null || StringUtils.isBlank(inChat.getCommand())) {
+                throw new RuntimeException("参数不全");
+            }
+
+            logger.info("command={}", inChat.getCommand());
+            if (Objects.equals("getConfig", inChat.getCommand())) {
+
+                Map<String, String> configs = new HashMap<>();
+
+                configs.put("configXService#name", "XXS_test");
+
+                Chat outChat = new Chat(inChat.getChatId(), "allConfig", configs);
+
+                channel.writeAndFlush(JsonUtil.toJson(outChat));
+            }
+
+
+        } catch (Exception e) {
+            logger.error("不支持的消息类型:message={}", message, e);
+        }
 
     }
 }

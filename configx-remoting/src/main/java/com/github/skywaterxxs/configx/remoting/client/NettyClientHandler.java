@@ -22,7 +22,7 @@ public class NettyClientHandler extends ChannelDuplexHandler {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof String) {
-            clientProcessor.processor((String) msg);
+            clientProcessor.processor(ctx.channel(),(String) msg);
         }
 
     }

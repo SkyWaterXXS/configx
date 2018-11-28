@@ -22,7 +22,7 @@ import java.util.concurrent.Executor;
 @ChannelHandler.Sharable
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
-//    private final static Logger LOGGER = LoggerInit.LOGGER_REMOTING;
+    //    private final static Logger LOGGER = LoggerInit.LOGGER_REMOTING;
     private final ConcurrentMap<Channel, NettyConnection> channels = new ConcurrentHashMap<Channel, NettyConnection>();
 
     @Override
@@ -39,7 +39,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ServerProcessor serverProcessor =ProcessorFactory.getProcessor(msg);
+        ServerProcessor serverProcessor = ProcessorFactory.getProcessor(msg);
 
         if (serverProcessor == null || serverProcessor.produceExecutor() == null) {
             return;
@@ -54,7 +54,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 //        BaseResponse responseWrapper = request.createErrorResponse("Provider's HSF thread pool is full.");
 //        responseWrapper.setStatus(ResponseStatus.THREADPOOL_BUSY);
 //        ctx.channel().writeToChannel(responseWrapper);
-    }
+        }
 
     }
 
@@ -73,7 +73,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         channels.putIfAbsent(channel, new NettyConnection(channel));
         super.channelActive(ctx);
 
-        System.out.println("客户端接入"+ctx.channel().id());
+        System.out.println("客户端接入" + ctx.channel().id());
     }
 
     @Override
@@ -91,7 +91,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         private final long dispatchTime;
         private final ServerProcessor serverProcessor;
 
-        public HandlerRunnable(Channel conneciton, Object message,ServerProcessor serverProcessor) {
+        public HandlerRunnable(Channel conneciton, Object message, ServerProcessor serverProcessor) {
             this.connection = conneciton;
             this.message = message;
             this.dispatchTime = System.currentTimeMillis();

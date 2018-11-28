@@ -87,7 +87,7 @@ public class NettyClient {
             future.cancel(true);
             future.channel().close();
 //            LoggerInit.LOGGER_REMOTING.warn("[remoting] failure to connect:" + targetIP);
-            throw new Exception("s");
+            throw new Exception("[remoting] failure to connect:" + targetIP);
         }
     }
 }

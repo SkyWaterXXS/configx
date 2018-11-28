@@ -1,5 +1,8 @@
 package com.github.skywaterxxs.configx.remoting.client;
 
+
+import io.netty.channel.Channel;
+
 /**
  * <p>ClassName:com.github.skywaterxxs.configx.remoting.client.ClientProcessor</p>
  * <p>描述:  </p>
@@ -11,5 +14,5 @@ package com.github.skywaterxxs.configx.remoting.client;
  */
 public interface ClientProcessor {
 
-    void processor(String message);
+    void processor(Channel channel, String message);
 }
