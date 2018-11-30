@@ -5,6 +5,7 @@ import com.github.skywaterxxs.configx.client.spring.annotation.ConfigX;
 import com.github.skywaterxxs.configx.client.store.ConfigXStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -12,6 +13,9 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 /**
@@ -96,6 +100,67 @@ public class ConfigXBeanPostProcessor implements BeanPostProcessor, Initializing
         ReflectionUtils.makeAccessible(field);
         ReflectionUtils.setField(field, bean, param);
     }
+
+    private void getAllInvokersOfABean(String beanName, Object bean)
+    {
+//        Map<String,MethodInfo> invokersOfABean = new HashMap<String/*MethodSignature*/,MethodInfo>();
+        Class<?> c = bean.getClass();
+        Class<?> originClass = AopUtils.getTargetClass(bean);
+
+        logger.info("=====Scanning Bean named: "+beanName+" start");
+        logger.info("Class: "+c.getCanonicalName()+" OriginClass: "+originClass.getCanonicalName());
+        for(Method m :originClass.getMethods())
+        {
+            ConfigX iv = m.getAnnotation(ConfigX.class);
+            if(iv!=null)
+            {
+//                MethodInfo mi = null;
+                //存在代理类
+                if(c!=originClass)
+                {
+                    //尝试获得代理类的对应方法，保持AOP的功能
+                    try
+                    {
+                        Method proxyMethod = c.getMethod(m.getName(), m.getParameterTypes());
+//                        mi = new MethodInfo(proxyMethod);
+                    }
+                    catch(Exception e)
+                    {
+                        logger.error("Exception generated when checking the counter method named: "+m.getName()+" from class named: "+c.getCanonicalName());
+                        //存在代理类，但添加AteyeInvoker注释的方法没有被代理，直接采用Target（原始类）的Method
+//                        mi = new MethodInfo(m);
+                        //要用Target对象invoke
+//                        mi.setTargetSpecial(true);
+                    }
+                }
+                else
+                {
+                    //不存在代理类
+//                    mi = new MethodInfo(m);
+                }
+//                if(iv.description()!=null&&!"".equals(iv.description()))
+//                {
+//                    mi.setDesc(iv.description());
+//                }
+//                if(iv.paraDesc()!=null&&!"".equals(iv.paraDesc()))
+//                {
+//                    mi.setParamDesc(iv.paraDesc());
+//                }
+//                mi.setType(iv.type()); //设置type值；
+//                invokersOfABean.put(mi.getSignature(), mi);
+//                logger.info("Monitored Method: "+mi.getSignature());
+            }
+            else
+            {
+                logger.info("Ordinary Method: "+m.getName());
+            }
+        }
+        logger.info("=====Scanning Bean named: "+beanName+" end");
+//        return invokersOfABean;
+    }
+
+
+
 
     @Override
     public void afterPropertiesSet() {

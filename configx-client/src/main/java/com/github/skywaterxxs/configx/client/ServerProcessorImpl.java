@@ -1,8 +1,7 @@
-package com.github.skywaterxxs.configx.server.business;
+package com.github.skywaterxxs.configx.client;
 
 import com.github.skywaterxxs.common.JsonUtil;
 import com.github.skywaterxxs.configx.client.domain.Chat;
-import com.github.skywaterxxs.configx.client.store.ConfigXStore;
 import com.github.skywaterxxs.configx.remoting.ServerProcessor;
 import io.netty.channel.Channel;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +14,7 @@ import java.util.Objects;
 import java.util.concurrent.*;
 
 /**
- * <p>ClassName:com.github.skywaterxxs.configx.server.business.ServerProcessorImpl</p>
+ * <p>ClassName:com.github.skywaterxxs.configx.client.ServerProcessorImpl</p>
  * <p>描述:  </p>
  * <p>日期: 2018/11/27 </p>
  *

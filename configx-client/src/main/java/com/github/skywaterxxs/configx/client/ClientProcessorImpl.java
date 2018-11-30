@@ -1,19 +1,19 @@
-package com.github.skywaterxxs.configx.client.store;
+package com.github.skywaterxxs.configx.client;
 
 import com.github.skywaterxxs.common.JsonUtil;
 import com.github.skywaterxxs.configx.client.domain.Chat;
+import com.github.skywaterxxs.configx.client.store.ConfigXStore;
 import com.github.skywaterxxs.configx.remoting.client.ClientProcessor;
 import io.netty.channel.Channel;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * <p>ClassName:com.github.skywaterxxs.configx.client.store.ClientProcessorImpl</p>
+ * <p>ClassName:com.github.skywaterxxs.configx.client.ClientProcessorImpl</p>
  * <p>描述:  </p>
  * <p>日期: 2018/11/27 </p>
  *

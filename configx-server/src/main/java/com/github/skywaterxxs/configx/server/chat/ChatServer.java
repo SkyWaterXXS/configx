@@ -1,7 +1,7 @@
 package com.github.skywaterxxs.configx.server.chat;
 
 import com.github.skywaterxxs.configx.remoting.server.NettyServer;
-import com.github.skywaterxxs.configx.server.business.ServerProcessorImpl;
+import com.github.skywaterxxs.configx.client.ServerProcessorImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

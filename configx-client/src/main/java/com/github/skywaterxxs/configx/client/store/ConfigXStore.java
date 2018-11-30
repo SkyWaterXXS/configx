@@ -2,6 +2,7 @@ package com.github.skywaterxxs.configx.client.store;
 
 import com.github.skywaterxxs.common.JsonUtil;
 import com.github.skywaterxxs.common.RetryRunUtil;
+import com.github.skywaterxxs.configx.client.ClientProcessorImpl;
 import com.github.skywaterxxs.configx.client.domain.Chat;
 import com.github.skywaterxxs.configx.client.spring.ConfigMetaInfo;
 import com.github.skywaterxxs.configx.remoting.client.NettyClient;
